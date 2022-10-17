@@ -1,0 +1,395 @@
+
+import check
+##A Ballot is a non-empty (dictof Str Nat) where the list of all
+##values are the numbers from 1 up to a maximum of len(d) 
+##without repetition and without gaps.
+
+def key(d, v):
+  '''
+  Returns the key k corresponding to d[k] == v
+  or None if no such key exists
+  
+  key: (dictof X Any) Any -> (anyof X None)
+  Requires: 
+     At most one key k satisfying d[k] == v
+  
+  Examples:
+     key({0: 'zero', 1: 'one'}, 'one') => 1
+     key({0: 'zero', 1: 'one'}, 'two') => None
+  '''
+  for key, value in d.items():
+    if v == value:
+      return key
+  return None
+
+def filter_1 (ballot,loser_name):
+  '''
+  Returns the ballot with the one with the least votes reoved.
+  
+  filter_1: (dictof X Any) Str -> (dictof X Any)
+  Requires: 
+    the ballot not empty
+  '''
+  
+  ballot_2 = list(filter(lambda d: key(d,1) != loser_name ,ballot))
+  return ballot_2
+  
+
+def filter_2 (ballot,loser_name):
+  '''
+  Returns the ballot where loser_name won
+  
+  filter_2: (dictof X Any) Str -> (dictof X Any)
+  Requires: 
+    the ballot not empty
+  '''
+  
+  ballot_3 = list(filter(lambda d: key(d,1) == loser_name ,ballot))
+  ballot_4 =  remove_loser(ballot_3,loser_name)
+  return ballot_3
+
+def add_ballot (ballot,loser_name):
+  '''
+  adds_two_ballots.
+  
+  add_ballot: (dictof X Any) loser_name -> (dictof X Any)
+  Requires: 
+    the ballot not empty
+  '''
+  return (filter_2 (ballot,loser_name) + filter_1 (ballot,loser_name))
+
+  
+def countX(lst, x):
+  '''
+  returns how many times x exists in the list
+  
+  countX: (listof Any) (dictof X) -> Nat
+  Requires: 
+  '''
+  
+  count = 0
+  for ele in lst:
+    if (ele == x):
+        count = count + 1
+  return count
+
+def remove_loser (L,name):
+  '''
+  returns the dictof where the least one of votes is removed and the others
+  position increases by one
+  
+  remove_loser: (listof dictof) (name) -> (listof dictof)
+  '''
+  M = []
+  while L != []:
+    x = L[0]
+    y = x.pop(name, None)
+    z = list(x.keys())
+    a = list(x.values())
+    b = {}
+    while z != []:
+      b[z[0]] = (a[0] - 1)
+      a = a[1:]
+      z = z[1:]
+    L = L[1:]
+    M = M + [b]
+  return M 
+
+def ranked_choice_winner_helper (ballot_4, fir_ca_n, sec_ca_n, th_ca_n, 
+  fo_ca_n,fi_ca_n,si_ca_n,se_ca_n,ei_ca_n,ni_ca_n,te_ca_n,fir_ca,sec_ca, th_ca, 
+  fo_ca,fi_ca,si_ca,se_ca,ei_ca, ni_ca, te_ca, number_of_votes ):
+  '''
+  returns the winner of the election based on the above voting scheme.
+  
+  remove_loser: (listof dictof) (anyof Nat Str) (anyof Nat Str) (anyof Nat Str)
+  (anyof Nat Str) (anyof Nat Str) (anyof Nat Str) (anyof Nat Str) (anyof Nat Str)
+  (anyof Nat Str) (anyof Nat Str) Nat Nat Nat Nat Nat Nat Nat Nat Nat Nat -> str
+  '''
+  
+  
+  
+  ballot_1 = ballot_4
+   
+  while ballot_4 != []:
+    the_ballot = ballot_4[0]
+    number_of_vote_similar_to_the_ballet =  countX(ballot_4, the_ballot)
+    who_won_the_ballot = key(the_ballot, 1)
+    ballot_4 = list(filter(lambda lis: lis != the_ballot, ballot_4))
+    
+    if fir_ca_n == 0 or fir_ca_n == who_won_the_ballot :
+      fir_ca_n = who_won_the_ballot
+      fir_ca = fir_ca + number_of_vote_similar_to_the_ballet
+      
+    elif sec_ca_n == 0 or sec_ca_n == who_won_the_ballot:
+      sec_ca_n = who_won_the_ballot
+      sec_ca = sec_ca +number_of_vote_similar_to_the_ballet
+      
+    elif th_ca_n == 0 or th_ca_n == who_won_the_ballot:
+      th_ca_n = who_won_the_ballot
+      th_ca = th_ca + number_of_vote_similar_to_the_ballet
+      
+    elif fo_ca_n == 0 or fo_ca_n == who_won_the_ballot:
+      fo_ca_n = who_won_the_ballot
+      fo_ca = fo_ca + number_of_vote_similar_to_the_ballet
+      
+    elif fi_ca_n == 0 or fi_ca_n == who_won_the_ballot:
+      fi_ca_n = who_won_the_ballot
+      fi_ca = fi_ca + number_of_vote_similar_to_the_ballet
+      
+    elif si_ca_n == 0 or si_ca_n == who_won_the_ballot:
+      si_ca_n = who_won_the_ballot
+      si_ca = si_ca + number_of_vote_similar_to_the_ballet
+    
+    elif se_ca_n == 0 or se_ca_n == who_won_the_ballot:
+      se_ca_n = who_won_the_ballot
+      se_ca = se_ca + number_of_vote_similar_to_the_ballet
+    
+    elif ei_ca_n == 0 or ei_ca_n == who_won_the_ballot:
+      ei_ca_n = who_won_the_ballot
+      ei_ca = ei_ca + number_of_vote_similar_to_the_ballet
+    
+    elif ni_ca_n == 0 or ni_ca_n == who_won_the_ballot:
+      ni_ca_n = who_won_the_ballot
+      ni_ca = ni_ca + number_of_vote_similar_to_the_ballet
+    
+    elif te_ca_n == 0 or te_ca_n == who_won_the_ballot:
+      te_ca_n = who_won_the_ballot
+      te_ca = te_ca + number_of_vote_similar_to_the_ballet
+      
+    aa = max (fir_ca,sec_ca,th_ca,fo_ca,fi_ca,si_ca,se_ca,ei_ca,ni_ca,te_ca) 
+    #print(fir_ca)
+    if ( aa / number_of_votes) >= 0.50:
+      if aa == fir_ca:
+        return fir_ca_n
+      elif aa == sec_ca:
+        return sec_ca_n
+      elif aa == th_ca:
+        return th_ca_n
+      elif aa == fo_ca:
+        return fo_ca_n
+      elif aa == fi_ca:
+        return fi_ca_n
+      elif aa == si_ca:
+        return si_ca_n
+      elif aa == se_ca:
+        return se_ca_n
+      elif aa == ei_ca:
+        return ei_ca_n
+      elif aa == ni_ca:
+       return ni_ca_n
+      elif aa == te_ca:
+        return te_ca_n
+    else:
+      loser_name = ''
+      L = [fir_ca,sec_ca,th_ca,fo_ca,fi_ca,si_ca,se_ca,ei_ca,ni_ca,te_ca]
+      y = min(filter(lambda i: i > 0, L))
+      if y == fir_ca:
+        loser_name = fir_ca_n
+      elif y == sec_ca:
+        loser_name = sec_ca_n
+      elif y == th_ca:
+        loser_name = th_ca_n
+      elif y == fo_ca:
+        loser_name = fo_ca_n
+      elif y == fi_ca:
+        loser_name = fi_ca_n
+      elif y == si_ca:
+        loser_name = si_ca_n
+      elif y == se_ca:
+        loser_name = se_ca_n
+      elif y == ei_ca:
+        loser_name = ei_ca_n
+      elif y == ni_ca:
+        loser_name = ni_ca_n
+      elif y == te_ca:
+        loser_name = te_ca_n
+
+    ballot_3 = list(filter(lambda d: key(d,1) == loser_name ,ballot_1))
+    ballot_4 =  remove_loser(ballot_3,loser_name)
+    
+    return ranked_choice_winner_helper (ballot_4, fir_ca_n, sec_ca_n, th_ca_n, 
+    fo_ca_n,fi_ca_n,si_ca_n,se_ca_n,ei_ca_n,ni_ca_n,te_ca_n,fir_ca,sec_ca, th_ca, 
+    fo_ca,fi_ca,si_ca,se_ca,ei_ca, ni_ca, te_ca , number_of_votes )
+
+
+def ranked_choice_winner(ballots):
+  '''
+  returns the winner of the election based on the above voting scheme.
+  
+  requires:
+    listof dictof not empty
+  
+  ranked_choice_winner: (listof dictof) -> str
+  
+  examples:
+  b1 = {'Kirby':1, 'Mario':2, 'Luigi':3}
+  b2 = {'Kirby':1, 'Mario':3, 'Luigi':2}
+  b3 = {'Kirby':2, 'Mario':1, 'Luigi':3}
+  b4 = {'Kirby':3, 'Mario':1, 'Luigi':2}
+  b5 = {'Kirby':2, 'Mario':3, 'Luigi':1}
+  b6 = {'Kirby':3, 'Mario':2, 'Luigi':1}
+  B = [b1]*20 + [b2]*20 + [b3]*11 + [b4]*10 + [b5]*10 + [b6]*29
+  ranked_choice_winner(B) => 'Kirby'
+  
+  '''
+  ballot_1 = ballots
+  number_of_votes = len(ballots)
+  fir_ca_n = 0
+  sec_ca_n = 0
+  th_ca_n = 0
+  fo_ca_n = 0
+  fi_ca_n = 0
+  si_ca_n = 0
+  se_ca_n = 0
+  ei_ca_n = 0
+  ni_ca_n = 0
+  te_ca_n = 0
+  
+  fir_ca = 0
+  sec_ca = 0
+  th_ca = 0
+  fo_ca = 0
+  fi_ca = 0
+  si_ca = 0
+  se_ca = 0
+  ei_ca = 0
+  ni_ca = 0
+  te_ca = 0
+  
+
+  while ballots != []:
+    the_ballot = ballots[0]
+    number_of_vote_similar_to_the_ballet =  countX(ballots, the_ballot)
+    who_won_the_ballot = key(the_ballot, 1)
+    ballots = list(filter(lambda lis: lis != the_ballot, ballots))
+    
+    if fir_ca_n == 0 or fir_ca_n == who_won_the_ballot :
+      fir_ca_n = who_won_the_ballot
+      fir_ca = fir_ca + number_of_vote_similar_to_the_ballet
+      
+    elif sec_ca_n == 0 or sec_ca_n == who_won_the_ballot:
+      sec_ca_n = who_won_the_ballot
+      sec_ca = sec_ca +number_of_vote_similar_to_the_ballet
+      
+    elif th_ca_n == 0 or th_ca_n == who_won_the_ballot:
+      th_ca_n = who_won_the_ballot
+      th_ca = th_ca + number_of_vote_similar_to_the_ballet
+      
+    elif fo_ca_n == 0 or fo_ca_n == who_won_the_ballot:
+      fo_ca_n = who_won_the_ballot
+      fo_ca = fo_ca + number_of_vote_similar_to_the_ballet
+      
+    elif fi_ca_n == 0 or fi_ca_n == who_won_the_ballot:
+      fi_ca_n = who_won_the_ballot
+      fi_ca = fi_ca + number_of_vote_similar_to_the_ballet
+      
+    elif si_ca_n == 0 or si_ca_n == who_won_the_ballot:
+      si_ca_n = who_won_the_ballot
+      si_ca = si_ca + number_of_vote_similar_to_the_ballet
+    
+    elif se_ca_n == 0 or se_ca_n == who_won_the_ballot:
+      se_ca_n = who_won_the_ballot
+      se_ca = se_ca + number_of_vote_similar_to_the_ballet
+    
+    elif ei_ca_n == 0 or ei_ca_n == who_won_the_ballot:
+      ei_ca_n = who_won_the_ballot
+      ei_ca = ei_ca + number_of_vote_similar_to_the_ballet
+    
+    elif ni_ca_n == 0 or ni_ca_n == who_won_the_ballot:
+      ni_ca_n = who_won_the_ballot
+      ni_ca = ni_ca + number_of_vote_similar_to_the_ballet
+    
+    elif te_ca_n == 0 or te_ca_n == who_won_the_ballot:
+      te_ca_n = who_won_the_ballot
+      te_ca = te_ca + number_of_vote_similar_to_the_ballet
+  
+  x = max (fir_ca,sec_ca,th_ca,fo_ca,fi_ca,si_ca,se_ca,ei_ca,ni_ca,te_ca)
+  if ( x / number_of_votes) >= 0.50:
+    if x == fir_ca:
+      return fir_ca_n
+    elif x == sec_ca:
+      return sec_ca_n
+    elif x == th_ca:
+      return th_ca_n
+    elif x == fo_ca:
+      return fo_ca_n
+    elif x == fi_ca:
+      return fi_ca_n
+    elif x == si_ca:
+      return si_ca_n
+    elif x == se_ca:
+      return se_ca_n
+    elif x == ei_ca:
+      return ei_ca_n
+    elif x == ni_ca:
+      return ni_ca_n
+    elif x == te_ca:
+      return te_ca_n
+  else:
+    loser_name = ''
+    L = [fir_ca,sec_ca,th_ca,fo_ca,fi_ca,si_ca,se_ca,ei_ca,ni_ca,te_ca]
+    y = min(filter(lambda i: i > 0, L))
+    
+    if y == fir_ca:
+      loser_name = fir_ca_n
+    elif y == sec_ca:
+      loser_name = sec_ca_n
+    elif y == th_ca:
+      loser_name = th_ca_n
+    elif y == fo_ca:
+      loser_name = fo_ca_n
+    elif y == fi_ca:
+      loser_name = fi_ca_n
+    elif y == si_ca:
+      loser_name = si_ca_n
+    elif y == se_ca:
+      loser_name = se_ca_n
+    elif y == ei_ca:
+      loser_name = ei_ca_n
+    elif y == ni_ca:
+      loser_name = ni_ca_n
+    elif y == te_ca:
+      loser_name = te_ca_n
+
+  ballot_3 = list(filter(lambda d: key(d,1) == loser_name ,ballot_1))
+  ballot_4 =  remove_loser(ballot_3,loser_name)
+  
+  return ranked_choice_winner_helper (ballot_4, fir_ca_n, sec_ca_n, th_ca_n, 
+  fo_ca_n,fi_ca_n,si_ca_n,se_ca_n,ei_ca_n,ni_ca_n,te_ca_n,fir_ca,sec_ca, th_ca, 
+  fo_ca,fi_ca,si_ca,se_ca,ei_ca, ni_ca, te_ca, number_of_votes )
+  
+
+  
+##TEST
+b1 = {'Kirby':1, 'Mario':2, 'Luigi':3}
+b2 = {'Kirby':1, 'Mario':3, 'Luigi':2}
+b3 = {'Kirby':2, 'Mario':1, 'Luigi':3}
+b4 = {'Kirby':3, 'Mario':1, 'Luigi':2}
+b5 = {'Kirby':2, 'Mario':3, 'Luigi':1}
+b6 = {'Kirby':3, 'Mario':2, 'Luigi':1}
+B = [b1]*20 + [b2]*20 + [b3]*11 + [b4]*10 + [b5]*10 + [b6]*29
+
+check.expect("MarkUs Basic Test", ranked_choice_winner(B), 'Kirby')
+
+
+b1 = {'Kirby':1, 'Mario':2, 'Luigi':3}
+b2 = {'Kirby':1, 'Mario':3, 'Luigi':2}
+b3 = {'Kirby':2, 'Mario':1, 'Luigi':3}
+b4 = {'Kirby':3, 'Mario':1, 'Luigi':2}
+b5 = {'Kirby':2, 'Mario':3, 'Luigi':1}
+b6 = {'Kirby':3, 'Mario':2, 'Luigi':1}
+B = [b1]*20 + [b2]*20 + [b3]*11 + [b4]*10 + [b5]*1000 + [b6]*29
+
+check.expect("MarkUs Basic Test_1", ranked_choice_winner(B),"Luigi" )
+
+
+
+b1 = {'Kirby':1, 'Mario':2, 'Luigi':3}
+b2 = {'Kirby':1, 'Mario':3, 'Luigi':2}
+b3 = {'Kirby':2, 'Mario':1, 'Luigi':3}
+b4 = {'Kirby':3, 'Mario':1, 'Luigi':2}
+b5 = {'Kirby':2, 'Mario':3, 'Luigi':1}
+b6 = {'Kirby':3, 'Mario':2, 'Luigi':1}
+B = [b1]*0 + [b2]*0 + [b3]*1 + [b4]*0 + [b5]*000 + [b6]*0
+
+check.expect("MarkUs Basic Test_1", ranked_choice_winner(B),"Mario" )
